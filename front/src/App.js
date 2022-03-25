@@ -1,6 +1,7 @@
 import './App.css';
 import axios from "axios"
 import React, { useEffect, useState } from 'react';
+import { nameRef } from "./firebase"
 
 function App() {
   const [name,setName] = useState("");
@@ -14,6 +15,12 @@ function App() {
   
   async function postName(e) {
 		e.preventDefault()
+    const item = {
+      Info: name,
+      Task: false
+    }
+
+    nameRef.push(item)
 		try {
 			await axios.post("http://localhost:9200/post_name", {
 				name
@@ -21,6 +28,8 @@ function App() {
 		} catch (error) {
 			console.error(error)
 		}
+    
+    setName("")
 	}
   return (
     <div className="App">

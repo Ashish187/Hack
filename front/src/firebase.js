@@ -14,5 +14,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 const databaseRef = firebase.database().ref()
+export const auth = firebase.auth()
 export const nameRef = databaseRef.child("names")
 export default firebase

@@ -20,6 +20,13 @@ form{
 .card-title{
   height: 2vh;
 }
+.fetch-data{
+  border: 2px solid red;
+}
+
+.fetch-data tr td{
+  padding: 30px;
+}
 
 .input-class,.desc{
   margin-top: 20px;

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { nameRef } from "../firebase"
 import { Button,Alert, Nav } from "react-bootstrap"
 import { Dropdown,Card } from "react-bootstrap";
-import { doc, collection,  onSnapshot } from "firebase/database";
 import 'tachyons'
 
 function Search() {
@@ -14,8 +13,14 @@ function Search() {
     const [post,setPost] = useState([])
 
     useEffect(()=>{
-        nameRef.collection('names').onSnapshot(snapshot =>{
-          setPost(snapshot.docs.map(doc=>doc.data()))
+        nameRef.on('value',(snapshot)=>{
+            const data = snapshot.val()
+            const post = []
+            for(let id in data){
+              post.push(data[id])
+            }
+            console.log(post)
+            setPost(post)
         })
     },[])
 
@@ -56,24 +61,28 @@ className= "my-3" />
 <Button variant="info" onClick={()=>handleSearch()} >Search</Button>
     </div>
 
-    <div>
-      <h1>Latest Projects</h1>
-      {
-        post.map(
-          
-            vari => (
-              <>
-            <h4>{vari.UserName}</h4>
-            <h4>{vari.CollegeName}</h4>
-            <h4>{vari.ProjectName}</h4>
-            <h4>{vari.Description}</h4>
-              </>
-            
-            )
-          
-        )
-      }
-    </div>
+
+    <table className='fetch-data'>
+      {post ? post.map((vari)=> 
+      <>
+      <tr>
+        <th>University</th>
+        <th>Student</th>
+        <th>About Project</th>
+        <th>Project</th>
+      </tr>
+      <tr>
+      <td>{vari.CollegeName}</td>
+      <td>{vari.UserName}</td>
+      <td>{vari.Description}</td>
+      <td>{vari.ProjectName}</td>
+      </tr>
+      
+      </>
+      
+      
+      ):''}
+    </table>
     </>
     
     

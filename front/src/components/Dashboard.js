@@ -5,19 +5,32 @@ import { nameRef } from "../firebase"
 import { Button,Alert, Nav } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useNavigate } from "react-router-dom"
-import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import { storage } from "../firebase";
+import FileSave from "./FileSave";
+// import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+// import { storage } from "../firebase";
 
 export default function Dashboard() {
     const [name,setName] = useState("");
     const [pName,setPName] = useState("");
     const [area,setArea] = useState("");
   const [home,setHome] = useState("");
-  const [progress, setProgress] = useState(0);
+  // const [progress, setProgress] = useState(0);
   const [error, setError] = useState("")
   const { logout } = useAuth()
   const history = useNavigate()
 
+//   const [image , setImage] = useState('');
+// const upload = ()=>{
+//   if(image == null)
+//     return;
+//   storage.ref(`/images/${image.name}`).put(image)
+//   .on("state_changed" , alert("success") , alert);
+// }
+
+
+  // function handleChange(e) {
+  //   setFile(e.target.files[0]);
+  // }
   useEffect(()=>{
     axios.get("http://localhost:9200/home").then(function(response){
       setHome(response.data)
@@ -65,6 +78,17 @@ export default function Dashboard() {
   //     }
   //   );
   // };
+
+  // const storageRef = ref(storage, `files/${file.name}`);
+  //   const uploadTask = storageRef.put(file);
+  //   uploadTask.on("state_changed", console.error, () => {
+  //     ref
+  //       .getDownloadURL()
+  //       .then((url) => {
+  //         setFile(null);
+  //         setURL(url);
+  //       });
+  //   });
   
   async function postName(e) {
 		e.preventDefault()
@@ -73,6 +97,27 @@ export default function Dashboard() {
       ProjectName: pName,
       Description: area,
     }
+
+    // const file = e.target.files;
+    // if (!file) return;
+    // const storageRef = ref(storage, `files/${file.name}`);
+    // const uploadTask = uploadBytesResumable(storageRef, file);
+
+    // uploadTask.on(
+    //   "state_changed",
+    //   (snapshot) => {
+    //     const prog = Math.round(
+    //       (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+    //     );
+    //     setProgress(prog);
+    //   },
+    //   (error) => console.log(error),
+    //   () => {
+    //     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+    //       console.log("File available at", downloadURL);
+    //     });
+    //   }
+    // );
 
 
     nameRef.push(item)
@@ -84,27 +129,26 @@ export default function Dashboard() {
 			console.error(error)
 		}
 
-        const file = e.target[0].files[0];
-    // uploadFiles(file);
-    if (!file) return;
-    const storageRef = ref(storage, `files/${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
+    //     const file = e.target.files;
+    // if (!file) return;
+    // const storageRef = ref(storage, `files/${file.name}`);
+    // const uploadTask = uploadBytesResumable(storageRef, file);
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const prog = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        setProgress(prog);
-      },
-      (error) => console.log(error),
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log("File available at", downloadURL);
-        });
-      }
-    );
+    // uploadTask.on(
+    //   "state_changed",
+    //   (snapshot) => {
+    //     const prog = Math.round(
+    //       (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+    //     );
+    //     setProgress(prog);
+    //   },
+    //   (error) => console.log(error),
+    //   () => {
+    //     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+    //       console.log("File available at", downloadURL);
+    //     });
+    //   }
+    // );
 
     
     setName("")
@@ -133,13 +177,16 @@ export default function Dashboard() {
 
                 <textarea name="desc" placeholder="Project Description" className="desc" cols="30" rows="10" value={area} onChange={(e) => setArea(e.target.value)}></textarea>
 
-                <input type="file" className="input-class" />
+                <FileSave />
+                {/* <input type="file" className="input-class"/> */}
+                {/* <button onClick={upload}>Upload</button> */}
+                {/* <button>upload to firebase</button> */}
 
 				<Button type="submit">Send Name</Button>
                 {error && <Alert variant="danger">{error}</Alert>}
 			</form>
             <hr />
-      <h2>Uploading done {progress}%</h2>
+      {/* <h2>Uploading done {progress}%</h2> */}
     </div>
       </>
     

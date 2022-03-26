@@ -5,9 +5,13 @@ import { Button,Alert, Nav } from "react-bootstrap"
 import { Dropdown,Card } from "react-bootstrap";
 import 'tachyons'
 
+
 function Search() {
 
+<<<<<<< HEAD
   
+=======
+>>>>>>> 430cbb9125148ff6506e798d92b5d5f0ccb3d61b
     const [text, setText] = useState("Select search type")
     const [search_value, setSearch_value] = useState("");
     const [post,setPost] = useState([])

@@ -13,6 +13,7 @@ export default function Dashboard() {
     const [name,setName] = useState("");
     const [pName,setPName] = useState("");
     const [area,setArea] = useState("");
+    const [college,setCollege] = useState("");
   const [home,setHome] = useState("");
   // const [progress, setProgress] = useState(0);
   const [error, setError] = useState("")
@@ -95,7 +96,8 @@ export default function Dashboard() {
     const item = {
       UserName: name,
       ProjectName: pName,
-      Description: area,
+      CollegeName: college,
+      Description: area
     }
 
     // const file = e.target.files;
@@ -123,7 +125,7 @@ export default function Dashboard() {
     nameRef.push(item)
 		try {
 			await axios.post("http://localhost:9200/post_name", {
-				name,pName,area
+				name,pName,college,area
 			})
 		} catch (error) {
 			console.error(error)
@@ -153,6 +155,7 @@ export default function Dashboard() {
     
     setName("")
     setPName("")
+    setCollege("")
     setArea("")
 	}
 
@@ -173,7 +176,9 @@ export default function Dashboard() {
       <form onSubmit={postName}>
 				<input type="text" placeholder="Enter Your Name" className="input-class" value={name} onChange={(e) => setName(e.target.value)} />
 
-				<input type="text" placeholder="Project Name" className="input-class" value={pName} onChange={(e) => setPName(e.target.value)} />
+        <input type="text" placeholder="Enter Your Project Name" className="input-class" value={pName} onChange={(e) => setPName(e.target.value)} />
+
+				<input type="text" placeholder="University/College Name" className="input-class" value={college} onChange={(e) => setCollege(e.target.value)} />
 
                 <textarea name="desc" placeholder="Project Description" className="desc" cols="30" rows="10" value={area} onChange={(e) => setArea(e.target.value)}></textarea>
 

@@ -115,9 +115,9 @@ export default function Dashboard() {
     
   return (
       <>
-    <Nav defaultActiveKey="/home" as="ul" style={{background: "black"}} className="fixed-top">
+    <Nav defaultActiveKey="/home" as="ul" style={{}} className="fixed-top">
   <Nav.Item as="li" style={{margin: "8px"}}>
-    <Nav.Link href="/">Hack</Nav.Link>
+    <Nav.Link href="/" >Back</Nav.Link>
   </Nav.Item>
   
   <Nav.Item as="li" variant="primary" style={{marginLeft: "1350px",marginTop: "8px",marginBottom: "8px"}}>

@@ -17,6 +17,10 @@ form{
   flex-direction: column;
 }
 
+.card-title{
+  height: 2vh;
+}
+
 .input-class,.desc{
   margin-top: 20px;
   border-radius: 6px;

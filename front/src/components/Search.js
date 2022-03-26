@@ -1,18 +1,24 @@
-import axios from "axios"
 import '../App.css'
 import React, { useEffect, useState } from 'react';
 import { nameRef } from "../firebase"
 import { Button,Alert, Nav } from "react-bootstrap"
-import { useAuth } from "../contexts/AuthContext"
-import { Link, useNavigate } from "react-router-dom"
-import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import { storage } from "../firebase";
-import { Dropdown } from "react-bootstrap";
+import { Dropdown,Card } from "react-bootstrap";
+import { doc, collection,  onSnapshot } from "firebase/database";
 import 'tachyons'
 
 function Search() {
+
+  
     const [text, setText] = useState("Select search type")
     const [search_value, setSearch_value] = useState("");
+    const [post,setPost] = useState([])
+
+    useEffect(()=>{
+        nameRef.collection('names').onSnapshot(snapshot =>{
+          setPost(snapshot.docs.map(doc=>doc.data()))
+        })
+    },[])
+
     const handle_byname = () =>{
         setText("By Project Name");
     }
@@ -25,6 +31,8 @@ const handleSearch = () =>{
 }
 
   return (
+
+    <>
     <div className="container">
         <h1>Search Projects</h1>
         <Dropdown>
@@ -47,6 +55,29 @@ className= "my-3" />
 <br/>
 <Button variant="info" onClick={()=>handleSearch()} >Search</Button>
     </div>
+
+    <div>
+      <h1>Latest Projects</h1>
+      {
+        post.map(
+          
+            vari => (
+              <>
+            <h4>{vari.UserName}</h4>
+            <h4>{vari.CollegeName}</h4>
+            <h4>{vari.ProjectName}</h4>
+            <h4>{vari.Description}</h4>
+              </>
+            
+            )
+          
+        )
+      }
+    </div>
+    </>
+    
+    
+
   )
 }
 

@@ -8,6 +8,7 @@ import Signup from './Signup';
 import Login from './Login';
 import PrivateRoute from "./PrivateRoute"
 import Home from './Home';
+import Search from './Search';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           </Route>
         {/* <PrivateRoute exact path="/" element={<Dashboard/>} /> */}
         <Route exact path="/dashboard" element={<Dashboard/>} />
+        <Route exact path="/search" element={<Search/>} />
         <Route exact path="/signup" element={<Signup/>} />
         <Route exact path="/login" element={<Login/>} />
         </Routes>

@@ -10,7 +10,9 @@ import { storage } from "../firebase";
 import { Dropdown } from "react-bootstrap";
 import 'tachyons'
 
+
 function Search() {
+
     const [text, setText] = useState("Select search type")
     const [search_value, setSearch_value] = useState("");
     const handle_byname = () =>{

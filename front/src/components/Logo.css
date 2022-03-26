@@ -1,0 +1,12 @@
+.Tilt {
+    background: linear-gradient(89deg, #FF5EDF 0%, #04C8DE 100%); /* w3c */
+  }
+
+  img{
+    width:100px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top:14px;
+    /*margin-bottom: 10px;*/
+  }

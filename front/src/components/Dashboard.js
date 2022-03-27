@@ -159,6 +159,11 @@ export default function Dashboard() {
     setArea("")
 	}
 
+  const handleclick =(e) => {
+    
+    alert("Project submitted");
+    e.preventDefault();
+  }
     
   return (
       <>
@@ -174,20 +179,23 @@ export default function Dashboard() {
       <div className="App">
           <h2 className="head">Upload Your Projects</h2>
       <form onSubmit={postName}>
-				<input type="text" placeholder="Enter Your Name" className="input-class" value={name} onChange={(e) => setName(e.target.value)} />
+				<input type="text" required placeholder="Enter Your Name" className="input-class" value={name} onChange={(e) => setName(e.target.value)} />
 
-        <input type="text" placeholder="Enter Your Project Name" className="input-class" value={pName} onChange={(e) => setPName(e.target.value)} />
+        <input type="text" required placeholder="Enter Your Project Name" className="input-class" value={pName} onChange={(e) => setPName(e.target.value)} />
 
-				<input type="text" placeholder="University/College Name" className="input-class" value={college} onChange={(e) => setCollege(e.target.value)} />
+				<input type="text" required placeholder="University/College Name" className="input-class" value={college} onChange={(e) => setCollege(e.target.value)} />
 
-                <textarea name="desc" placeholder="Project Description" className="desc" cols="30" rows="10" value={area} onChange={(e) => setArea(e.target.value)}></textarea>
+                <textarea name="desc" required placeholder="Project Description" className="desc" cols="30" rows="10" value={area} onChange={(e) => setArea(e.target.value)}></textarea>
 
                 <FileSave />
                 {/* <input type="file" className="input-class"/> */}
                 {/* <button onClick={upload}>Upload</button> */}
                 {/* <button>upload to firebase</button> */}
 
-				<Button type="submit">Send Name</Button>
+        <p>
+          Note: In case of multiple files, create a zip file and then upload that file
+        </p>
+				<Button type="submit" onClick={(e)=>{handleclick(e)}}>Submit</Button>
                 {error && <Alert variant="danger">{error}</Alert>}
 			</form>
             <hr />

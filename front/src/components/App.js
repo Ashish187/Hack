@@ -25,7 +25,7 @@ function App() {
           </Route>
         {/* <PrivateRoute exact path="/" element={<Dashboard/>} /> */}
         <Route exact path="/dashboard" element={<Dashboard/>} />
-        <Route exact path="/search" element={<Search/>} />
+        <Route exact path="/search" element={<Search/>}  />
         <Route exact path="/signup" element={<Signup/>} />
         <Route exact path="/login" element={<Login/>} />
         </Routes>

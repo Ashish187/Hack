@@ -8,35 +8,69 @@ import 'tachyons'
 
 function Search() {
 
-<<<<<<< HEAD
-  
-=======
->>>>>>> 430cbb9125148ff6506e798d92b5d5f0ccb3d61b
     const [text, setText] = useState("Select search type")
     const [search_value, setSearch_value] = useState("");
     const [post,setPost] = useState([])
 
+    let flag=0;  
     useEffect(()=>{
         nameRef.on('value',(snapshot)=>{
             const data = snapshot.val()
             const post = []
             for(let id in data){
+              if(text===data[id].ProjectName)
               post.push(data[id])
             }
             console.log(post)
-            setPost(post)
+            //setPost(post)
         })
     },[])
 
     const handle_byname = () =>{
         setText("By Project Name");
+        flag=1;
     }
 
     const handle_byinstitute = () =>{
         setText("By University/College Name");
+        flag=2;
+        nameRef.on('value',(snapshot)=>{
+          const data = snapshot.val()
+          const post = []
+          for(let id in data){
+    
+    
+            if( search_value===data[id].CollegeName)
+            post.push(data[id])
+          }
+          console.log(post)
+          setPost(post)
+      })
     }
 const handleSearch = () =>{
     console.log(search_value);
+    nameRef.on('value',(snapshot)=>{
+      const data = snapshot.val()
+      const post = []
+      for(let id in data){
+
+        if(   search_value===data[id].ProjectName)
+        post.push(data[id])
+
+        if( flag!==1 && (search_value===data[id].CollegeName ))
+        post.push(data[id])
+      }
+      console.log(post)
+        
+      
+const ans = post.filter(myFunction);
+
+function myFunction(value, index, array) {
+  return (index%2==0)?value:"";
+}
+
+      setPost(ans)
+  })
 }
 
   return (
@@ -64,22 +98,24 @@ className= "my-3" />
 <br/>
 <Button variant="info" onClick={()=>handleSearch()} >Search</Button>
     </div>
-
-
+    
     <table className='fetch-data'>
-      {post ? post.map((vari)=> 
-      <>
-      <tr>
-        <th>University</th>
-        <th>Student</th>
-        <th>About Project</th>
-        <th>Project</th>
+    <tr style={{border: "5px red"}}>
+        <th className='pa3'>University</th>
+        <th className='pa3'>Student</th>
+        <th className='pa3'>About Project</th>
+        <th className='pa3'>Project</th>
       </tr>
+      {post ? post.map((vari)=> 
+      
+      <>
+      
+      
       <tr>
-      <td>{vari.CollegeName}</td>
-      <td>{vari.UserName}</td>
-      <td>{vari.Description}</td>
-      <td>{vari.ProjectName}</td>
+      <td className='pa3'>{vari.CollegeName}</td>
+      <td className='pa3'>{vari.UserName}</td>
+      <td className='pa3'>{vari.Description}</td>
+      <td className='pa3'>{vari.ProjectName}</td>
       </tr>
       
       </>
